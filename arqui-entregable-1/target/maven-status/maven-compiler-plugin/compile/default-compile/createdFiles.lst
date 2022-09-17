@@ -1,0 +1,13 @@
+main.class
+dao/ProductDAO.class
+daoFactory/MySQLDAOFactory.class
+daoFactory/DAOFactory$1.class
+dao/BillProductDAO.class
+daoFactory/Databases.class
+Entidades/Client.class
+daoFactory/DAOFactory.class
+Entidades/Producto.class
+Entidades/FacturaProducto.class
+dao/ClientDAO.class
+Entidades/Factura.class
+dao/BillDAO.class

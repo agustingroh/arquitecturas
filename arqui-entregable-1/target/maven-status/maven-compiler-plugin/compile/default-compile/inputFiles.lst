@@ -1,0 +1,12 @@
+/home/agustin/arqui-entregable-1/src/main/java/Entidades/Factura.java
+/home/agustin/arqui-entregable-1/src/main/java/Entidades/FacturaProducto.java
+/home/agustin/arqui-entregable-1/src/main/java/dao/ProductDAO.java
+/home/agustin/arqui-entregable-1/src/main/java/Entidades/Client.java
+/home/agustin/arqui-entregable-1/src/main/java/dao/ClientDAO.java
+/home/agustin/arqui-entregable-1/src/main/java/daoFactory/DAOFactory.java
+/home/agustin/arqui-entregable-1/src/main/java/main.java
+/home/agustin/arqui-entregable-1/src/main/java/dao/BillProductDAO.java
+/home/agustin/arqui-entregable-1/src/main/java/dao/BillDAO.java
+/home/agustin/arqui-entregable-1/src/main/java/daoFactory/MySQLDAOFactory.java
+/home/agustin/arqui-entregable-1/src/main/java/Entidades/Producto.java
+/home/agustin/arqui-entregable-1/src/main/java/daoFactory/Databases.java
