@@ -1,13 +1,16 @@
 package daoFactory;
-import dao.BillDAO;
-import dao.BillProductDAO;
-import dao.ClientDAO;
-import dao.ProductDAO;
+import dao.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+/**
+* @author Ana Celani, Pedro Codan, Agustin Groh
+* @version 0.0.1
+* @brief Creates DAO Factory for SQL
+**/
 
 public class MySQLDAOFactory extends DAOFactory {
 
@@ -15,12 +18,19 @@ public class MySQLDAOFactory extends DAOFactory {
 
     public static String URI = "";
 
+    private String uri;
+
+    private String driver;
+
     private static Connection conn;
 
     public MySQLDAOFactory(){
       registerDriver();
     }
 
+    /**
+     * @brief Register a jdbc driver for mySQL
+     **/
     public static void registerDriver(){
         try {
             Class.forName(DRIVER).getDeclaredConstructor().newInstance();
@@ -31,6 +41,9 @@ public class MySQLDAOFactory extends DAOFactory {
         }
     }
 
+    /**
+      @brief create a connection to the database using URI,user and password.
+     */
     //FIXME: Deberiamos pasar la URI el PASS Y el USR por parametro?
     public static Connection createConnection() throws SQLException {
         conn = DriverManager.getConnection(URI,"root","Password");
@@ -38,15 +51,17 @@ public class MySQLDAOFactory extends DAOFactory {
         return conn;
     }
 
-    //"jdbc:mysql://localhost:13306/arqui"
-
+    /**
+     * @breif Used to set the URI for connecting the database
+     * @param uri where database is allocated
+     * **/
     public static void setURI(String uri) {
         URI = uri;
     }
 
     @Override
     public ClientDAO getClientDAO() throws SQLException {
-        return new ClientDAO();
+        return new ClientDAOMySQL();
     }
 
     @Override
@@ -63,5 +78,19 @@ public class MySQLDAOFactory extends DAOFactory {
     public ProductDAO getProductDAO() throws SQLException {
         return new ProductDAO();
     }
-    
+
+    @Override
+    public void setUri(String uri) {
+
+    }
+
+    public String getUri(){
+        return  this.uri;
+    }
+
+    public void setDriver(String driver){
+        this.driver= driver;
+    }
+
+
 }
