@@ -8,6 +8,7 @@ Entidades/Client.class
 daoFactory/DAOFactory.class
 Entidades/Producto.class
 Entidades/FacturaProducto.class
+dao/ClientDAOMySQL.class
 dao/ClientDAO.class
 Entidades/Factura.class
 dao/BillDAO.class
