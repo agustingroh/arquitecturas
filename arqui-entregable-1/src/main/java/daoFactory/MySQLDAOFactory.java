@@ -18,6 +18,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     public static String URI = "";
 
+    //Pedro: harían falta los dos parametros private cuando tenemos los dos static?
     private String uri;
 
     private String driver;
@@ -33,6 +34,7 @@ public class MySQLDAOFactory extends DAOFactory {
      **/
     public static void registerDriver(){
         try {
+            //Pedro: getDeclaredConstructor funciona como un singleton no?
             Class.forName(DRIVER).getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                  | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
