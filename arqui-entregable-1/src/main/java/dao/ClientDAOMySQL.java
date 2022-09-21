@@ -1,17 +1,19 @@
 package dao;
 
 import Entities.Client;
+import Entities.Product;
 import InterfacesDao.ClientDAO;
 import daoFactory.MySQLDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * @author Ana Celani, Pedro Codan, Agustin Groh
  * **/
-
 public class ClientDAOMySQL implements ClientDAO {
 
 /**
@@ -25,10 +27,39 @@ public class ClientDAOMySQL implements ClientDAO {
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Client").execute();
         conn.commit();
-        conn.prepareStatement("CREATE TABLE Client (id integer PRIMARY KEY , nombre VARCHAR(50) NOT NULL, email VARCHAR(150) NOT NULL)").execute();
+        conn.prepareStatement("CREATE TABLE Client (id INT PRIMARY KEY , name VARCHAR(50) NOT NULL, email VARCHAR(150) NOT NULL)").execute();
         conn.commit();
         conn.close();
+    }
 
+    /**
+     * @brief lista los clientes ordenados en base a la facturacion
+     * @return ArrayList<Client> ordenados por facturacion desc
+     * @throws SQLException
+     */
+    @Override
+    public ArrayList<Client> customerInvoicesMost() throws SQLException {
+        ArrayList<Client> clientes = new ArrayList<>();
+        Connection conn = MySQLDAOFactory.createConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT c.idClient, c.name, c.email, SUM(bp.quantity*p.value) as Facturacion" +
+                                                             "FROM Client c JOIN Bill b ON c.idClient = b.idClient" +
+                                                             "JOIN BillProduct bp ON b.idBill = bp.idBill" +
+                                                             "JOIN Product p ON p.idProduct = bp.idProduct" +
+                                                             "GROUP BY c.idClient, c.name, c.email" +
+                                                             "ORDER BY Facturacion DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Client c = new Client(rs.getInt(1),rs.getString(2),rs.getString(3));
+                clientes.add(c);
+            }
+            conn.commit();
+            conn.close();
+            return clientes;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return clientes;
     }
 
 
@@ -59,4 +90,5 @@ public class ClientDAOMySQL implements ClientDAO {
           }
       });
     }
+
 }

@@ -55,10 +55,10 @@ public class ProductDAO implements InterfacesDao.ProductDAO {
         try{
             //value o valor, chequear que ande con value
             PreparedStatement ps = conn.prepareStatement("SELECT idProduct, name, value, SUM(p.value*bp.quantity) as Recaudacion" +
-                    " FROM Product p JOIN BillProduct bp ON p.idProduct=bp.idProduct" +
-                    " GROUP BY idProduct" +
-                    " ORDER BY Recaudacion DESC" +
-                    " LIMIT 1");
+                                                            " FROM Product p JOIN BillProduct bp ON p.idProduct=bp.idProduct" +
+                                                            " GROUP BY idProduct, name, value" +
+                                                            " ORDER BY Recaudacion DESC" +
+                                                            " LIMIT 1");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 p = new Product(rs.getInt(1), rs.getString(2), rs.getFloat(3));
