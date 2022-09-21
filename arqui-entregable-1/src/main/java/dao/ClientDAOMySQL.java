@@ -2,7 +2,6 @@ package dao;
 
 import Entities.Client;
 import daoFactory.MySQLDAOFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

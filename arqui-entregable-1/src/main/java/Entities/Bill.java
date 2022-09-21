@@ -6,7 +6,8 @@ public class Bill {
 
     private int idClient;//Dónde indico a que tabla referir
 
-    public Bill(int idClient) {
+    public Bill(int idBill, int idClient) {
+        this.idBill = idBill;
         this.idClient = idClient;
     }
 
