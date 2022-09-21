@@ -1,15 +1,12 @@
 import Entities.Client;
 import csvReader.CSVClientReader;
-import dao.ClientDAO;
+import InterfacesDao.ClientDAO;
 import daoFactory.DAOFactory;
 import daoFactory.Databases;
-import daoFactory.MySQLDAOFactory;
 
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
 import java.util.LinkedList;
 

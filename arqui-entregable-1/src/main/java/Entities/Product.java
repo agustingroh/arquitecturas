@@ -8,7 +8,7 @@ public class Product {
 
     private float value;
 
-    public Product( String name, float value) {
+    public Product(int idProduct, String name, float value) {
         this.name = name;
         this.value = value;
     }

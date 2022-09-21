@@ -1,4 +1,5 @@
 package daoFactory;
+import InterfacesDao.ClientDAO;
 import dao.*;
 
 import java.lang.reflect.InvocationTargetException;

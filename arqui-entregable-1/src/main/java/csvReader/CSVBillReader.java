@@ -23,10 +23,9 @@ public class CSVBillReader extends CSVReader{
         Iterable<CSVRecord> records =  this.read();
         LinkedList<Bill> bills = new LinkedList<>();
         for (CSVRecord record : records) {
-            //queda en spanglish por los nombres que usa los archivos csv
-            int idFactura = Integer.parseInt(record.get(0));
-            int idCliente = Integer.parseInt(record.get(1));
-            bills.add(new Bill(idFactura,idCliente));
+            int idBill = Integer.parseInt(record.get(0));
+            int idClient = Integer.parseInt(record.get(1));
+            bills.add(new Bill(idBill,idClient));
         }
         return bills;
     }

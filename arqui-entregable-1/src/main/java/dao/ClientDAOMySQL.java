@@ -1,6 +1,7 @@
 package dao;
 
 import Entities.Client;
+import InterfacesDao.ClientDAO;
 import daoFactory.MySQLDAOFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,13 +12,15 @@ import java.util.LinkedList;
  * @author Ana Celani, Pedro Codan, Agustin Groh
  * **/
 
-public class ClientDAOMySQL implements ClientDAO{
+public class ClientDAOMySQL implements ClientDAO {
 
 /**
  * @brief Creates client table on database only if exists
  * @return SQLException if something goes wrong on the creation
  * **/
-    private void createClientTable() throws SQLException {
+    public void createClientTable() throws SQLException {
+        //rever uri por parametro
+        //Una clase por db?
         MySQLDAOFactory.setURI("jdbc:mysql://localhost:13306/arqui");
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Client").execute();

@@ -2,7 +2,7 @@ package daoFactory;
 
 import dao.BillDAO;
 import dao.BillProductDAO;
-import dao.ClientDAO;
+import InterfacesDao.ClientDAO;
 import dao.ProductDAO;
 
 import java.sql.SQLException;
