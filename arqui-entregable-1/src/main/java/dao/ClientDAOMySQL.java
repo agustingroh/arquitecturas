@@ -69,10 +69,9 @@ public class ClientDAOMySQL implements ClientDAO {
      * **/
     public void insertAll(LinkedList<Client> clients) throws SQLException {
         this.createClientTable();
-        Connection conn = MySQLDAOFactory.createConnection();
-        conn.prepareStatement("INSERT INTO Client (id,nombre,email) VALUES(?,?,?)");
+        Connection conn = MySQLDAOFactory.createConnection(); conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
         conn.setAutoCommit(false);
-        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Client (id,nombre,email) VALUES(?,?,?)");
+        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
       clients.forEach(client -> {
           try {
               preparedStatement.setInt(1,client.getId());

@@ -1,4 +1,9 @@
+import Entities.Bill;
+import Entities.BillProduct;
 import Entities.Client;
+import InterfacesDao.BillDAO;
+import InterfacesDao.BillProductDAO;
+import csvReader.CSVBillReader;
 import csvReader.CSVClientReader;
 import InterfacesDao.ClientDAO;
 import daoFactory.DAOFactory;
@@ -20,6 +25,21 @@ public class Main {
         String filePath = new File("").getAbsolutePath();
         LinkedList<Client> clients = new CSVClientReader(filePath + "/src/main/java/csv/clientes.csv").getClients();
         clientDao.insertAll(clients);
+
+        LinkedList<Bill> bills = new CSVBillReader(filePath + "/src/main/java/csv/facturas.csv").getBills();
+        bills.forEach(bill -> System.out.println(bill));
+        BillDAO billDAO = mySQLDAO.getBillDAO();
+        billDAO.insertAll(bills);
+
+        // TODO: Implements  CSV BillProduct reader
+        LinkedList<BillProduct> billsProducts = new CSVBill(filePath + "/src/main/java/csv/facturas.csv").getBills();
+        BillProductDAO billProductDAO = mySQLDAO.getBillProductDAO();
+        billProductDAO.insertAll(billsProducts);
+
+
+
+
+
 
 
     }

@@ -23,6 +23,7 @@ public class CSVReader {
      * @return iterable of CSV record
      * **/
     public Iterable<CSVRecord> read() throws IOException {
+        System.out.println(this.path);
         Reader data = new FileReader(this.path);
         Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(data);
         return records;

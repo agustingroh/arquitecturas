@@ -16,4 +16,9 @@ public class Bill {
     public void setIdClient(int idClient) {
         this.idClient = idClient;
     }
+
+
+    public String toString(){
+        return "Billd id: " + this.idBill + " " + "Client id: " + this.idClient;
+    }
 }
