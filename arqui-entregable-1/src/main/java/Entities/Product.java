@@ -7,6 +7,7 @@ public class Product {
     private float value;
 
     public Product(int idProduct, String name, float value) {
+        this.idProduct = idProduct;
         this.name = name;
         this.value = value;
     }
@@ -26,5 +27,14 @@ public class Product {
 
     public void setValue(float value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idProduct=" + idProduct +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                '}';
     }
 }

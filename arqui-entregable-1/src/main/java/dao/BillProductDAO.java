@@ -10,6 +10,11 @@ import java.util.LinkedList;
 
 public class BillProductDAO implements InterfacesDao.BillProductDAO {
 
+    private String uri;
+
+    public BillProductDAO (String uri) {
+        this.uri = uri;
+    }
 
     @Override
     public void insertAll(LinkedList<BillProduct> billProducts) throws SQLException {
@@ -39,16 +44,16 @@ public class BillProductDAO implements InterfacesDao.BillProductDAO {
 
     @Override
     public void createBillProductTable() throws SQLException {
-        MySQLDAOFactory.setURI("jdbc:mysql://localhost:13306/arqui");
+        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS BillProduct").execute();
         conn.commit();
         conn.prepareStatement("CREATE TABLE BillProduct (idBill integer NOT NULL , " +
                 "idProduct integer NOT NULL," +
-                " cantidad integer NOT NULL," +
-                " PRIMARY KEY (idBill, idProduct))," +
-                " FOREIGN KEY idBill REFERENCES Bill (idBill)," +
-                " FOREIGN KEY idProduct REFERENCES Product (idProduct)").execute();
+                " quantity integer NOT NULL," +
+                " PRIMARY KEY (idBill, idProduct)," +
+                " FOREIGN KEY (idBill) REFERENCES Bill (idBill)," +
+                " FOREIGN KEY (idProduct) REFERENCES Product (idProduct))").execute();
         conn.commit();
         conn.close();
     }

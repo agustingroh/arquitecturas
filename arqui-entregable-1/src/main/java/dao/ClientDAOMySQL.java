@@ -16,14 +16,18 @@ import java.util.LinkedList;
  * **/
 public class ClientDAOMySQL implements ClientDAO {
 
+    private String uri;
+
+    public ClientDAOMySQL (String uri) {
+        this.uri = uri;
+    }
+
 /**
  * @brief Creates client table on database only if exists
  * @return SQLException if something goes wrong on the creation
  * **/
     public void createClientTable() throws SQLException {
-        //rever uri por parametro
-        //Una clase por db?
-        MySQLDAOFactory.setURI("jdbc:mysql://localhost:13306/arqui");
+        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Client").execute();
         conn.commit();
@@ -42,12 +46,11 @@ public class ClientDAOMySQL implements ClientDAO {
         ArrayList<Client> clientes = new ArrayList<>();
         Connection conn = MySQLDAOFactory.createConnection();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT c.idClient, c.name, c.email, SUM(bp.quantity*p.value) as Facturacion" +
-                                                             "FROM Client c JOIN Bill b ON c.idClient = b.idClient" +
-                                                             "JOIN BillProduct bp ON b.idBill = bp.idBill" +
-                                                             "JOIN Product p ON p.idProduct = bp.idProduct" +
-                                                             "GROUP BY c.idClient, c.name, c.email" +
-                                                             "ORDER BY Facturacion DESC");
+            PreparedStatement ps = conn.prepareStatement("SELECT c.id, c.name, c.email, SUM(bp.quantity*p.value) as Facturacion " +
+                    "FROM Client c JOIN Bill b ON c.id = b.idClient JOIN BillProduct bp ON b.idBill = bp.idBill " +
+                    "JOIN Product p ON p.idProduct = bp.idProduct " +
+                    "GROUP BY c.id, c.name, c.email " +
+                    "ORDER BY Facturacion DESC;\n");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Client c = new Client(rs.getInt(1),rs.getString(2),rs.getString(3));

@@ -15,15 +15,14 @@ public abstract class DAOFactory {
     public abstract ProductDAO getProductDAO() throws SQLException;
 
 
-    public static DAOFactory getDAOFactory(Databases databases) {
+    public static DAOFactory getDAOFactory(Databases databases,String uri) {
         switch (databases) {
-            case MYSQL : return new MySQLDAOFactory();
+            case MYSQL : return new MySQLDAOFactory(uri);
             case DERBY: return null;
             case POSTGRESQL: return null;
             default: return null;
         }
     }
 
-    public abstract void setUri(String uri);
 
 }
