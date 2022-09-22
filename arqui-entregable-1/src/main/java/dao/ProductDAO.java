@@ -10,9 +10,14 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class ProductDAO implements InterfacesDao.ProductDAO {
+    private String uri;
+
+    public ProductDAO (String uri) {
+        this.uri = uri;
+    }
     @Override
     public void insertAll(LinkedList<Product> products) throws SQLException {
-//        this.createProductTable();
+        this.createProductTable();
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("INSERT INTO Product (idProduct, name, value) VALUES(?,?,?)");
         conn.setAutoCommit(false);
@@ -37,24 +42,25 @@ public class ProductDAO implements InterfacesDao.ProductDAO {
 
     @Override
     public void createProductTable() throws SQLException {
-        MySQLDAOFactory.setURI("jdbc:mysql://localhost:13306/arqui");
+        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Product").execute();
         conn.commit();
         conn.prepareStatement("CREATE TABLE Product (idProduct int PRIMARY KEY , " +
                 " name varchar(45) NOT NULL," +
-                " value float NOT NULL," ).execute();
+                " value float NOT NULL)" ).execute();
         conn.commit();
         conn.close();
     }
 
     @Override
     public Product productMoreCollects() throws SQLException {
+        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         Product p = null;
         try{
             //value o valor, chequear que ande con value
-            PreparedStatement ps = conn.prepareStatement("SELECT idProduct, name, value, SUM(p.value*bp.quantity) as Recaudacion" +
+            PreparedStatement ps = conn.prepareStatement("SELECT p.idProduct, p.name, p.value, SUM(p.value*bp.quantity) as Recaudacion" +
                                                             " FROM Product p JOIN BillProduct bp ON p.idProduct=bp.idProduct" +
                                                             " GROUP BY idProduct, name, value" +
                                                             " ORDER BY Recaudacion DESC" +

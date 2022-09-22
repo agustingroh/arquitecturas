@@ -26,7 +26,9 @@ public class MySQLDAOFactory extends DAOFactory {
 
     private static Connection conn;
 
-    public MySQLDAOFactory(){
+    public MySQLDAOFactory(String uri)
+    {
+       this.uri = uri;
       registerDriver();
     }
 
@@ -64,27 +66,22 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public ClientDAO getClientDAO() throws SQLException {
-        return new ClientDAOMySQL();
+        return new ClientDAOMySQL(this.uri);
     }
 
     @Override
     public  BillDAO getBillDAO() throws SQLException {
-        return new BillDAO();
+        return new BillDAO(this.uri);
     }
 
     @Override
     public  BillProductDAO getBillProductDAO() throws SQLException {
-        return new BillProductDAO();
+        return new BillProductDAO(this.uri);
     }
 
     @Override
     public ProductDAO getProductDAO() throws SQLException {
-        return new ProductDAO();
-    }
-
-    @Override
-    public void setUri(String uri) {
-
+        return new ProductDAO(this.uri);
     }
 
     public String getUri(){

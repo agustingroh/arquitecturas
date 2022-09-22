@@ -9,6 +9,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class BillDAO implements InterfacesDao.BillDAO {
+
+    private String uri;
+
+    public BillDAO (String uri) {
+        this.uri = uri;
+    }
     @Override
     public void insertAll(LinkedList<Bill> bills) throws SQLException {
         this.createBillTable();
@@ -34,7 +40,7 @@ public class BillDAO implements InterfacesDao.BillDAO {
 
     @Override
     public void createBillTable() throws SQLException {
-        MySQLDAOFactory.setURI("jdbc:mysql://localhost:13306/arqui");
+        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Bill").execute();
         conn.commit();
