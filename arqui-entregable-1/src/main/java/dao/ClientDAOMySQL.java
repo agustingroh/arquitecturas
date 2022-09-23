@@ -1,7 +1,5 @@
 package dao;
-
 import Entities.Client;
-import Entities.Product;
 import InterfacesDao.ClientDAO;
 import daoFactory.MySQLDAOFactory;
 import java.sql.Connection;
@@ -26,7 +24,8 @@ public class ClientDAOMySQL implements ClientDAO {
  * @brief Creates client table on database only if exists
  * @return SQLException if something goes wrong on the creation
  * **/
-    public void createClientTable() throws SQLException {
+    @Override
+    public void createTable() throws SQLException {
         MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Client").execute();
@@ -71,7 +70,6 @@ public class ClientDAOMySQL implements ClientDAO {
      * @param clients List of clients
      * **/
     public void insertAll(LinkedList<Client> clients) throws SQLException {
-        this.createClientTable();
         Connection conn = MySQLDAOFactory.createConnection(); conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
         conn.setAutoCommit(false);
         PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");

@@ -18,7 +18,6 @@ public class BillProductDAO implements InterfacesDao.BillProductDAO {
 
     @Override
     public void insertAll(LinkedList<BillProduct> billProducts) throws SQLException {
-        this.createBillProductTable();
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("INSERT INTO BillProduct (idBill, idProduct, quantity) VALUES(?,?,?)");
         conn.setAutoCommit(false);
@@ -43,7 +42,7 @@ public class BillProductDAO implements InterfacesDao.BillProductDAO {
 
 
     @Override
-    public void createBillProductTable() throws SQLException {
+    public void createTable() throws SQLException {
         MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS BillProduct").execute();

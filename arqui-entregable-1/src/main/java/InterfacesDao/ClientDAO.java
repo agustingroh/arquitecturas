@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface ClientDAO {
     public void insertAll(LinkedList<Client> clients) throws SQLException;
-    public void createClientTable() throws SQLException;
+    void createTable() throws SQLException;
+
     public ArrayList<Client> customerInvoicesMost() throws SQLException;
 
 }
