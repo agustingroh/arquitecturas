@@ -17,7 +17,6 @@ public class BillDAO implements InterfacesDao.BillDAO {
     }
     @Override
     public void insertAll(LinkedList<Bill> bills) throws SQLException {
-        this.createBillTable();
         Connection conn = MySQLDAOFactory.createConnection();
         conn.setAutoCommit(false);
         PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Bill (idBill, idClient) VALUES(?,?)");
@@ -39,7 +38,7 @@ public class BillDAO implements InterfacesDao.BillDAO {
     }
 
     @Override
-    public void createBillTable() throws SQLException {
+    public void createTable() throws SQLException {
         MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
         conn.prepareStatement("DROP TABLE IF EXISTS Bill").execute();

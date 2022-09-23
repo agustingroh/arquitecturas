@@ -7,5 +7,5 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 public interface BillProductDAO {
     public void insertAll(LinkedList<BillProduct> billProducts) throws SQLException;
-    public void createBillProductTable() throws SQLException;
+    public void createTable() throws SQLException;
 }

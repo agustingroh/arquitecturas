@@ -40,6 +40,12 @@ public class Main {
         LinkedList<BillProduct> billsProducts = new CSVBillProductReader(filePath + "/src/main/java/csv/facturas-productos.csv").getBillProduct();
 
 
+        //Creamos las tablas
+        clientDAO.createTable();
+        billDAO.createTable();
+        productDAO.createTable();
+        billProductDAO.createTable();
+
         //insertamos los datos en las tablas
         clientDAO.insertAll(clients);
         billDAO.insertAll(bills);

@@ -8,5 +8,5 @@ import java.util.LinkedList;
 
 public interface BillDAO {
     public void insertAll(LinkedList<Bill> bills) throws SQLException;
-    public void createBillTable() throws SQLException;
+    public void createTable() throws SQLException;
 }
