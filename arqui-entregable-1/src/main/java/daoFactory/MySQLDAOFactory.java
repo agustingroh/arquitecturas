@@ -1,6 +1,9 @@
 package daoFactory;
 import InterfacesDao.ClientDAO;
-import dao.*;
+import dao.mySQLDAO.BillDAOMYSQL;
+import dao.mySQLDAO.BillProductDAOMySQL;
+import dao.mySQLDAO.ClientDAOMySQL;
+import dao.mySQLDAO.ProductDAOMySQL;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -17,19 +20,16 @@ public class MySQLDAOFactory extends DAOFactory {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-    public static String URI = "";
-
-    //Pedro: harían falta los dos parametros private cuando tenemos los dos static?
-    private String uri;
-
-    private String driver;
-
-    private static Connection conn;
+    private static String URI;
 
     public MySQLDAOFactory(String uri)
     {
-       this.uri = uri;
+       setURI(uri);
       registerDriver();
+    }
+
+    public static void setURI(String uri){
+        URI=uri;
     }
 
     /**
@@ -37,7 +37,6 @@ public class MySQLDAOFactory extends DAOFactory {
      **/
     public static void registerDriver(){
         try {
-            //Pedro: getDeclaredConstructor funciona como un singleton no?
             Class.forName(DRIVER).getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                  | NoSuchMethodException | SecurityException | ClassNotFoundException e) {
@@ -51,46 +50,30 @@ public class MySQLDAOFactory extends DAOFactory {
      */
     //FIXME: Deberiamos pasar la URI el PASS Y el USR por parametro?
     public static Connection createConnection() throws SQLException {
-        conn = DriverManager.getConnection(URI,"root","Password");
+        Connection conn  = DriverManager.getConnection(URI,"root","Password");
         conn.setAutoCommit(false);
         return conn;
     }
 
-    /**
-     * @breif Used to set the URI for connecting the database
-     * @param uri where database is allocated
-     * **/
-    public static void setURI(String uri) {
-        URI = uri;
-    }
 
     @Override
     public ClientDAO getClientDAO() throws SQLException {
-        return new ClientDAOMySQL(this.uri);
+        return new ClientDAOMySQL();
     }
 
     @Override
-    public  BillDAO getBillDAO() throws SQLException {
-        return new BillDAO(this.uri);
+    public BillDAOMYSQL getBillDAO() throws SQLException {
+        return new BillDAOMYSQL();
     }
 
     @Override
-    public  BillProductDAO getBillProductDAO() throws SQLException {
-        return new BillProductDAO(this.uri);
+    public BillProductDAOMySQL getBillProductDAO() throws SQLException {
+        return new BillProductDAOMySQL();
     }
 
     @Override
-    public ProductDAO getProductDAO() throws SQLException {
-        return new ProductDAO(this.uri);
+    public ProductDAOMySQL getProductDAO() throws SQLException {
+        return new ProductDAOMySQL();
     }
-
-    public String getUri(){
-        return  this.uri;
-    }
-
-    public void setDriver(String driver){
-        this.driver= driver;
-    }
-
 
 }

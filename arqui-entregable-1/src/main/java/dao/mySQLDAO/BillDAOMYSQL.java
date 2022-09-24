@@ -1,6 +1,7 @@
-package dao;
+package dao.mySQLDAO;
 
 import Entities.Bill;
+import InterfacesDao.BillDAO;
 import daoFactory.MySQLDAOFactory;
 
 import java.sql.Connection;
@@ -8,13 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class BillDAO implements InterfacesDao.BillDAO {
+public class BillDAOMYSQL implements BillDAO<SQLException> {
 
-    private String uri;
-
-    public BillDAO (String uri) {
-        this.uri = uri;
-    }
     @Override
     public void insertAll(LinkedList<Bill> bills) throws SQLException {
         Connection conn = MySQLDAOFactory.createConnection();
@@ -39,11 +35,14 @@ public class BillDAO implements InterfacesDao.BillDAO {
 
     @Override
     public void createTable() throws SQLException {
-        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
+        //Only for testing: Disable the foreing key checks to allow drop table
+        conn.prepareStatement("SET foreign_key_checks = 0;").execute();
         conn.prepareStatement("DROP TABLE IF EXISTS Bill").execute();
+        conn.prepareStatement("SET foreign_key_checks = 1;").execute();
         conn.commit();
-        conn.prepareStatement("CREATE TABLE Bill (idBill INT PRIMARY KEY , idClient INT NOT NULL, FOREIGN KEY (idClient) REFERENCES Client (id))").execute();
+        conn.prepareStatement("CREATE TABLE Bill (idBill INT PRIMARY KEY , idClient INT NOT NULL, FOREIGN KEY (idClient) REFERENCES Client (id)" +
+                "ON DELETE CASCADE)").execute();
         conn.commit();
         conn.close();
 

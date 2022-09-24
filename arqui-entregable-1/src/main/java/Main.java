@@ -13,14 +13,12 @@ import csvReader.CSVProductReader;
 import daoFactory.DAOFactory;
 import daoFactory.Databases;
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws Throwable {
 
         // Obtenemos el DAO de mySQL
        DAOFactory mySQLDAO = DAOFactory.getDAOFactory(Databases.MYSQL,"jdbc:mysql://localhost:13306/arqui");
