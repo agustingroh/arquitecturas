@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public interface ClientDAO {
-    public void insertAll(LinkedList<Client> clients) throws SQLException;
-    void createTable() throws SQLException;
-
-    public ArrayList<Client> customerInvoicesMost() throws SQLException;
+public interface ClientDAO <T extends Throwable> {
+    public void insertAll(LinkedList<Client> clients) throws T;
+    void createTable() throws T ;
+    public ArrayList<Client> customerInvoicesMost() throws T;
 
 }

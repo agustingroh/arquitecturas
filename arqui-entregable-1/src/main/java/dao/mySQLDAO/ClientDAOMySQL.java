@@ -1,4 +1,4 @@
-package dao;
+package dao.mySQLDAO;
 import Entities.Client;
 import InterfacesDao.ClientDAO;
 import daoFactory.MySQLDAOFactory;
@@ -12,12 +12,9 @@ import java.util.LinkedList;
 /**
  * @author Ana Celani, Pedro Codan, Agustin Groh
  * **/
-public class ClientDAOMySQL implements ClientDAO {
+public class ClientDAOMySQL implements ClientDAO<SQLException> {
 
-    private String uri;
-
-    public ClientDAOMySQL (String uri) {
-        this.uri = uri;
+    public ClientDAOMySQL () {
     }
 
 /**
@@ -26,9 +23,11 @@ public class ClientDAOMySQL implements ClientDAO {
  * **/
     @Override
     public void createTable() throws SQLException {
-        MySQLDAOFactory.setURI(this.uri);
         Connection conn = MySQLDAOFactory.createConnection();
+        //Only for testing: Disable the foreing key checks to allow drop table
+        conn.prepareStatement("SET foreign_key_checks = 0;").execute();
         conn.prepareStatement("DROP TABLE IF EXISTS Client").execute();
+        conn.prepareStatement("SET foreign_key_checks = 1;");
         conn.commit();
         conn.prepareStatement("CREATE TABLE Client (id INT PRIMARY KEY , name VARCHAR(50) NOT NULL, email VARCHAR(150) NOT NULL)").execute();
         conn.commit();
@@ -70,7 +69,8 @@ public class ClientDAOMySQL implements ClientDAO {
      * @param clients List of clients
      * **/
     public void insertAll(LinkedList<Client> clients) throws SQLException {
-        Connection conn = MySQLDAOFactory.createConnection(); conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
+        Connection conn = MySQLDAOFactory.createConnection();
+        conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
         conn.setAutoCommit(false);
         PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO Client (id,name,email) VALUES(?,?,?)");
       clients.forEach(client -> {

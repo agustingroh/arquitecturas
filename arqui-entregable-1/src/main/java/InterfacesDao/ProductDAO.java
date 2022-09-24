@@ -6,8 +6,8 @@ import Entities.Product;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public interface ProductDAO {
-    public void insertAll(LinkedList<Product> products) throws SQLException;
-    public void createTable() throws SQLException;
-    public Product productMoreCollects() throws SQLException;
+public interface ProductDAO <T extends Throwable>{
+    public void insertAll(LinkedList<Product> products) throws T;
+    public void createTable() throws T;
+    public Product productMoreCollects() throws T;
 }
