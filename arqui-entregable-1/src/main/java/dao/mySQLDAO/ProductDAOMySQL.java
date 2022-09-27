@@ -57,7 +57,6 @@ public class ProductDAOMySQL implements ProductDAO<SQLException> {
         Connection conn = MySQLDAOFactory.createConnection();
         Product p = null;
         try{
-            //value o valor, chequear que ande con value
             PreparedStatement ps = conn.prepareStatement("SELECT p.idProduct, p.name, p.value, SUM(p.value*bp.quantity) as Recaudacion" +
                                                             " FROM Product p JOIN BillProduct bp ON p.idProduct=bp.idProduct" +
                                                             " GROUP BY idProduct, name, value" +

@@ -12,6 +12,8 @@ import InterfacesDao.ClientDAO;
 import csvReader.CSVProductReader;
 import daoFactory.DAOFactory;
 import daoFactory.Databases;
+import daoFactory.MySQLDAOFactory;
+
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,8 +22,12 @@ public class Main {
 
     public static void main(String[] args) throws Throwable {
 
+
+     // Creamos base de datos para mySQL (SOLO PARA TESTEO)
+     MySQLDAOFactory.createDatabase("arqui");
+
         // Obtenemos el DAO de mySQL
-       DAOFactory mySQLDAO = DAOFactory.getDAOFactory(Databases.MYSQL,"jdbc:mysql://localhost:13306/arqui");
+       DAOFactory mySQLDAO = DAOFactory.getDAOFactory(Databases.MYSQL,"jdbc:mysql://localhost:3306/arqui");
 
 
        // Obtenemos los DAO de cada entidad
