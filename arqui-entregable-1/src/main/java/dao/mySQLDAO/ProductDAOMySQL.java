@@ -12,7 +12,6 @@ import java.util.LinkedList;
 
 public class ProductDAOMySQL implements ProductDAO<SQLException> {
 
-
     @Override
     public void insertAll(LinkedList<Product> products) throws SQLException {
         Connection conn = MySQLDAOFactory.createConnection();
@@ -36,7 +35,6 @@ public class ProductDAOMySQL implements ProductDAO<SQLException> {
             }
         });
     }
-
     @Override
     public void createTable() throws SQLException {
         Connection conn = MySQLDAOFactory.createConnection();
@@ -57,7 +55,6 @@ public class ProductDAOMySQL implements ProductDAO<SQLException> {
         Connection conn = MySQLDAOFactory.createConnection();
         Product p = null;
         try{
-            //value o valor, chequear que ande con value
             PreparedStatement ps = conn.prepareStatement("SELECT p.idProduct, p.name, p.value, SUM(p.value*bp.quantity) as Recaudacion" +
                                                             " FROM Product p JOIN BillProduct bp ON p.idProduct=bp.idProduct" +
                                                             " GROUP BY idProduct, name, value" +
@@ -73,8 +70,6 @@ public class ProductDAOMySQL implements ProductDAO<SQLException> {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
         return p;
-
     }
 }

@@ -2,7 +2,7 @@ package Entities;
 
 public class Bill {
     private int idBill;
-    private int idClient;//Dónde indico a que tabla referir
+    private int idClient;
     public Bill(int idBill, int idClient) {
         this.idBill = idBill;
         this.idClient = idClient;

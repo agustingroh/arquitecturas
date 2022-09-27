@@ -48,11 +48,19 @@ public class MySQLDAOFactory extends DAOFactory {
     /**
       @brief create a connection to the database using URI,user and password.
      */
-    //FIXME: Deberiamos pasar la URI el PASS Y el USR por parametro?
-    public static Connection createConnection() throws SQLException {
-        Connection conn  = DriverManager.getConnection(URI,"root","Password");
+        public static Connection createConnection() throws SQLException {
+        Connection conn  = DriverManager.getConnection(URI,"root","password");
         conn.setAutoCommit(false);
         return conn;
+    }
+
+
+    public static void createDatabase(String dbName) throws SQLException {
+        Connection conn  = DriverManager.getConnection("jdbc:mysql://localhost:3306","root","password");
+        conn.setAutoCommit(false);
+        String sql = "CREATE DATABASE IF NOT EXISTS" + " " +  dbName;
+        conn.prepareStatement(sql).execute();
+        conn.close();
     }
 
 

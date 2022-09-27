@@ -15,6 +15,7 @@ public abstract class DAOFactory {
     public abstract ProductDAOMySQL getProductDAO() throws SQLException;
 
 
+
     public static DAOFactory getDAOFactory(Databases databases,String uri) {
         switch (databases) {
             case MYSQL : return new MySQLDAOFactory(uri);
