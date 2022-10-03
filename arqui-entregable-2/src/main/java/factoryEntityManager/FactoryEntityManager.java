@@ -15,9 +15,16 @@ public abstract class FactoryEntityManager {
     public abstract CareerRepository getCareerRepository() throws SQLException;
     public abstract PersonCareerRepository getPersonCareerRepository() throws SQLException;
     protected EntityManager em;
+    private EntityManagerFactory emf;
     public FactoryEntityManager(String db){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(db);
+        this.emf =emf;
         this.em = emf.createEntityManager();
+    }
+
+    public void closeConnection(){
+        em.close();
+        emf.close();
     }
     public static  FactoryEntityManager getEntityManager(String db){
         switch (db){

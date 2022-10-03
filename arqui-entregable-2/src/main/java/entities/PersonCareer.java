@@ -11,14 +11,15 @@ public class PersonCareer {
 
     @EmbeddedId
     private PersonCareerId id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("student_dni")
     @JoinColumn(name = "student_dni")
     private Person student;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("career_id")
-    @JoinColumn(name = "career_id")
+    @JoinColumn(name = "career_id",referencedColumnName = "id")
     private  Career career;
 
     @Column
@@ -43,6 +44,7 @@ public class PersonCareer {
         this.initDate = new Date();
         this.dueDate = dueDate;
         this.id = new PersonCareerId(student.getDni(),career.getId());
+
     }
 
     public PersonCareer(Person student, Career career) {
@@ -53,6 +55,7 @@ public class PersonCareer {
         this.initDate = new Date();
         this.dueDate = null;
         this.id = new PersonCareerId(student.getDni(),career.getId());
+        System.out.println(id);
     }
 
 
@@ -96,13 +99,14 @@ public class PersonCareer {
         this.dueDate = dueDate;
     }
 
+    public PersonCareerId getId(){
+        return this.id;
+    }
+
 
     @Override
     public String toString() {
-        return "PersonCareer{" +
-                ", graduated=" + graduated +
-                ", initDate=" + initDate +
-                ", dueDate=" + dueDate +
-                '}';
-    }
+            return "graduation:" + this.graduated;
+        }
+
 }

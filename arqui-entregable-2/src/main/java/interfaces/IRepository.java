@@ -12,6 +12,6 @@ public interface IRepository<Entity , ID extends Serializable> {
 
    public Entity get(ID id);
 
-   public Entity delete(ID id);
+   public void delete(ID id);
 
 }

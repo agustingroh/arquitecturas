@@ -39,7 +39,7 @@ public class PersonRepository extends Repository implements IRepository<Person, 
     }
 
 
-    public Person getByLU(Integer LU) {
+    public Person getByLU(Long LU) {
         this.em.getTransaction().begin();
         String jpql = "SELECT p FROM Person p WHERE college_notebook= :LU";
         Query query = em.createQuery(jpql).setParameter("LU",LU);
@@ -50,7 +50,7 @@ public class PersonRepository extends Repository implements IRepository<Person, 
 
     public List<Person> getAllByGender(String gender) {
         this.em.getTransaction().begin();
-        String jpql = "SELECT p FROM Person p WHERE gender LIKE :gender";
+        String jpql = "SELECT p FROM Person p WHERE gender LIKE:gender";
         Query query = em.createQuery(jpql).setParameter("gender",gender);
         List<Person> students =  query.getResultList();
         this.em.getTransaction().commit();
@@ -58,13 +58,20 @@ public class PersonRepository extends Repository implements IRepository<Person, 
     }
 
     @Override
-    public Person get(Integer integer) {
-        return null;
+    public Person get(Integer dni) {
+        this.em.getTransaction().begin();
+        String jpql = "SELECT p FROM Person p WHERE dni=:DNI";
+        Query query = em.createQuery(jpql).setParameter("DNI",dni);
+        Person s = (Person) query.getSingleResult();
+        this.em.getTransaction().commit();
+        return s;
     }
 
     @Override
-    public Person delete(Integer integer) {
-        return null;
+    public void delete(Integer dni) {
+        this.em.getTransaction().begin();
+        this.em.createQuery("DELETE FROM Person p WHERE dni=:DNI").setParameter("DNI",dni).executeUpdate();
+        this.em.getTransaction().commit();
     }
 
 
