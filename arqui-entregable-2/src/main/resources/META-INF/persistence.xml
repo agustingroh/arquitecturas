@@ -3,6 +3,8 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>entities.Person</class>
         <class>entities.Career</class>
+        <class>entities.PersonCareer</class>
+        <class>entities.PersonCareerId</class>
         <properties>
         <!--  Propiedades de configuracion de JDBC para MySQL / -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

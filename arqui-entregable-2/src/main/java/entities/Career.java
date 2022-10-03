@@ -1,6 +1,9 @@
 package main.java.entities;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +15,7 @@ public class Career {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
@@ -22,6 +25,7 @@ public class Career {
 
 
     @OneToMany(mappedBy = "career",cascade = CascadeType.MERGE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PersonCareer> students;
 
 
@@ -42,21 +46,32 @@ public class Career {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "Career{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", duration=" + duration +
-                ", students=" + students +
-                '}';
+        String c = "{" +
+                "id:" + id +
+                ", name:'" + name + '\'' +
+                ", duration:" + duration + "," + '\'';
+
+
+        String students = "";
+        for (PersonCareer s:this.students) {
+            if(this.students.size()>1)
+           students += "{" + s.getStudent().toString() + "," + "graduated:"+ s.getGraduated() + "}" + ",";
+            else
+                students += "{" + s.getStudent().toString() + "," + "graduated:"+ s.getGraduated() + "}";
+        }
+        c = c.concat("students:" + "[" + students + "]" + "}");
+
+      return c;
+
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

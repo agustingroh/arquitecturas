@@ -1,5 +1,8 @@
 package main.java.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +13,7 @@ import java.util.List;
 public class Person {
     @Id
     @Column(name = "dni")
-    private int dni;
+    private Integer dni;
 
     @Column(name = "name")
     private String name;
@@ -25,13 +28,14 @@ public class Person {
     private int collegeNotebook;
 
      @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE)
-    private List<PersonCareer> careers;
+     @OnDelete(action = OnDeleteAction.CASCADE)
+     private List<PersonCareer> careers;
 
      public Person(){
          super();
      }
 
-    public Person(int dni, String name, String surname, String gender, String city, int collegeNotebook) {
+    public Person(Integer dni, String name, String surname, String gender, String city, int collegeNotebook) {
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -41,11 +45,11 @@ public class Person {
         this.careers = new ArrayList<>();
     }
 
-    public int getDni() {
+    public Integer getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(Integer dni) {
         this.dni = dni;
     }
 
@@ -103,14 +107,12 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "dni=" + dni +
+        return        "dni=" + dni +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", city='" + city + '\'' +
                 ", collegeNotebook=" + collegeNotebook +
-                ", careers=" + careers +
                 '}';
     }
 }

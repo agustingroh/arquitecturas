@@ -9,17 +9,17 @@ import java.util.Objects;
 public class PersonCareerId implements Serializable {
 
 
-    @Column(name = "student_dni")
-    private int student_dni;
+    @Column(name = "student_id")
+    private Integer student_dni;
 
     @Column(name = "career_id")
-    private int career_id;
+    private Integer career_id;
 
     public PersonCareerId() {}
 
     public PersonCareerId(
-            int student_dni,
-            int career_id) {
+            Integer student_dni,
+            Integer career_id) {
         this.student_dni = student_dni;
         this.career_id = career_id;
     }
@@ -35,5 +35,14 @@ public class PersonCareerId implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(student_dni, career_id);
+    }
+
+
+    @Override
+    public String toString() {
+        return "PersonCareerId[" +
+                "student_dni=" + student_dni +
+                ", career_id=" + career_id +
+                '}';
     }
 }
