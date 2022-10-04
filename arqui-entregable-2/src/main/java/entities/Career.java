@@ -61,9 +61,14 @@ public class Career {
         String students = "";
         for (PersonCareer s:this.students) {
             if(this.students.size()>1)
-           students += "{" + s.getStudent().toString() + "," + "graduated:"+ s.getGraduated() + "}" + ",";
+           students +=  s.getStudent().toString().substring(0, s.getStudent().toString().length() - 1)  + "," +
+                   " isGraduated: "+ s.isGraduated() +
+                   " , initDate: " + s.getInitDate().toString() +
+                   " , graduationDay:" + s.getDueDate() +
+                   "}" + ",";
             else
-                students += "{" + s.getStudent().toString() + "," + "graduated:"+ s.getGraduated() + "}";
+                students += "{" + s.getStudent().toString().substring(0, s.getStudent().toString().length()-1) + "," + "isGraduated: "+ s.isGraduated() + " , initDate: " + s.getInitDate().toString() +
+                    " , graduationDay:" + s.getDueDate() + "}";
         }
         c = c.concat("students:" + "[" + students + "]" + "}");
 

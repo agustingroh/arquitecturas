@@ -107,7 +107,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return        "dni=" + dni +
+        return      "{" + "dni=" + dni +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", gender='" + gender + '\'' +
