@@ -24,6 +24,8 @@ public class Person {
 
     private String city;
 
+    private int age;
+
     @Column(name="college_notebook")
     private int collegeNotebook;
 
@@ -35,7 +37,7 @@ public class Person {
          super();
      }
 
-    public Person(Integer dni, String name, String surname, String gender, String city, int collegeNotebook) {
+    public Person(Integer dni, String name, String surname, String gender, String city, int collegeNotebook, int age) {
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -43,7 +45,10 @@ public class Person {
         this.city = city;
         this.collegeNotebook = collegeNotebook;
         this.careers = new ArrayList<>();
+        this.age = age;
     }
+
+
 
     public Integer getDni() {
         return dni;
@@ -97,6 +102,12 @@ public class Person {
         return careers;
     }
 
+    public void setAge(int age){
+         this.age = age;
+    }
+
+    public int getAge(){return this.age;}
+
     public void setCareers(Career c)
     {
         PersonCareer pc = new PersonCareer(this,c);
@@ -112,6 +123,7 @@ public class Person {
                 ", surname='" + surname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", city='" + city + '\'' +
+                ", age='" + age + '\'' +
                 ", collegeNotebook=" + collegeNotebook +
                 '}';
     }
