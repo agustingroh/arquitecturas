@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.Query;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PersonRepository extends Repository implements IRepository<Person, Integer> {
@@ -39,14 +43,14 @@ public class PersonRepository extends Repository implements IRepository<Person, 
     }
 
 
-    public Person getByLU(Long LU) {
-        this.em.getTransaction().begin();
-        String jpql = "SELECT p FROM Person p WHERE college_notebook= :LU";
-        Query query = em.createQuery(jpql).setParameter("LU",LU);
-        Person p = (Person) query.getSingleResult();
-        this.em.getTransaction().commit();
-        return p;
-    }
+//    public Person getByLU(Long LU) {
+//        this.em.getTransaction().begin();
+//        String jpql = "SELECT p FROM Person p WHERE college_notebook= :LU";
+//        Query query = em.createQuery(jpql).setParameter("LU",LU);
+//        Person p = (Person) query.getSingleResult();
+//        this.em.getTransaction().commit();
+//        return p;
+//    }
 
     public List<Person> getAllByGender(String gender) {
         this.em.getTransaction().begin();
@@ -80,5 +84,15 @@ public class PersonRepository extends Repository implements IRepository<Person, 
     }
 
 
-
+    public void insertAll(LinkedList<Person> persons) {
+        this.em.getTransaction().begin();
+        persons.forEach(person -> {
+             try {
+                 this.em.persist(person);
+             } catch (Exception e){
+                 throw new RuntimeException(e);
+             }
+        });
+        this.em.getTransaction().commit();
+    }
 }
