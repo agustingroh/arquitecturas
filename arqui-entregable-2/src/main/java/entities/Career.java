@@ -14,7 +14,6 @@ import java.util.List;
 public class Career {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column
