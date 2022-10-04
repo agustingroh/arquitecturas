@@ -64,11 +64,11 @@ public class PersonCareerRepository extends Repository implements IRepository<Pe
         String jpql = "SELECT a.career_id, a.name, a.year ,SUM(a.enrolled) as enrolled,SUM(a.graduated) as graduated\n" +
                 "                FROM (SELECT pc.career_id,c.name, YEAR(pc.initDate) as year, COUNT(*) as enrolled, '0' as graduated\n" +
                 "                FROM PersonCareer pc JOIN Career c ON c.id=pc.career_id\n" +
-                "                GROUP BY pc.career_id,c.name,year,graduated\n" +
+                "                GROUP BY pc.career_id,c.name,year\n" +
                 "                UNION\n" +
                 "                SELECT pc.career_id,c.name, YEAR(pc.dueDate) as year,'0' as enrolled ,COUNT(*) as graduated\n" +
                 "                FROM PersonCareer pc JOIN Career c ON c.id=pc.career_id\n" +
-                "                GROUP BY pc.career_id,c.name,year,graduated HAVING year IS NOT NULL) as a\n" +
+                "                GROUP BY pc.career_id,c.name,year HAVING year IS NOT NULL) as a\n" +
                 "                GROUP BY a.career_id, a.name, a.year\n" +
                 "                ORDER BY a.year ASC, a.name ASC";
 

@@ -22,9 +22,6 @@ public class PersonCareer {
     @JoinColumn(name = "career_id",referencedColumnName = "id")
     private  Career career;
 
-    @Column
-    private Boolean graduated;
-
     @Column(nullable = false)
     private Date initDate;
 
@@ -36,11 +33,10 @@ public class PersonCareer {
         super();
     }
 
-    public PersonCareer(Person student, Career career, Boolean graduated, Date initDate, Date dueDate) {
+    public PersonCareer(Person student, Career career, Date initDate, Date dueDate) {
         super();
         this.student = student;
         this.career = career;
-        this.graduated = false;
         this.initDate = new Date();
         this.dueDate = dueDate;
         this.id = new PersonCareerId(student.getDni(),career.getId());
@@ -51,7 +47,6 @@ public class PersonCareer {
         super();
         this.student = student;
         this.career = career;
-        this.graduated = false;
         this.initDate = new Date();
         this.dueDate = null;
         this.id = new PersonCareerId(student.getDni(),career.getId());
@@ -75,12 +70,8 @@ public class PersonCareer {
         this.career = career;
     }
 
-    public Boolean getGraduated() {
-        return graduated;
-    }
-
-    public void setGraduated(Boolean graduated) {
-        this.graduated = graduated;
+    public Boolean isGraduated() {
+        return this.dueDate != null;
     }
 
     public Date getInitDate() {
@@ -106,7 +97,7 @@ public class PersonCareer {
 
     @Override
     public String toString() {
-            return "graduation:" + this.graduated;
+            return "initDate:" + this.initDate.toString() + "graduated:" + "" + this.dueDate.toString();
         }
 
 }
