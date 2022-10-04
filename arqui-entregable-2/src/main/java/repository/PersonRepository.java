@@ -43,14 +43,14 @@ public class PersonRepository extends Repository implements IRepository<Person, 
     }
 
 
-//    public Person getByLU(Long LU) {
-//        this.em.getTransaction().begin();
-//        String jpql = "SELECT p FROM Person p WHERE college_notebook= :LU";
-//        Query query = em.createQuery(jpql).setParameter("LU",LU);
-//        Person p = (Person) query.getSingleResult();
-//        this.em.getTransaction().commit();
-//        return p;
-//    }
+    public Person getByLU(int LU) {
+        this.em.getTransaction().begin();
+        String jpql = "SELECT p FROM Person p WHERE collegeNotebook= :LU";
+        Query query = em.createQuery(jpql).setParameter("LU",LU);
+        Person p = (Person) query.getSingleResult();
+        this.em.getTransaction().commit();
+        return p;
+    }
 
     public List<Person> getAllByGender(String gender) {
         this.em.getTransaction().begin();
