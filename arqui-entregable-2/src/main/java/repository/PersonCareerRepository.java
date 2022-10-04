@@ -6,13 +6,13 @@ import main.java.entities.Person;
 import main.java.entities.PersonCareer;
 import main.java.entities.PersonCareerId;
 import main.java.interfaces.IRepository;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -76,5 +76,40 @@ public class PersonCareerRepository extends Repository implements IRepository<Pe
                 List <Object[]> auxReport = query.getResultList();
         return auxReport.stream().map(r-> new CareerDTO((Integer)r[0],(String) r[1],(BigInteger) r[2],((Double) r[3]).intValue(),((Double) r[4]).intValue())).collect(Collectors.toList());
 
+    }
+
+    public void insertAll(LinkedList<PersonCareer> personCareers) {
+        this.em.getTransaction().begin();
+        personCareers.forEach(pc -> {
+            try {
+                System.out.println("antes del persist");
+                this.em.persist(pc);
+                System.out.println("despues del persist");
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
+        this.em.getTransaction().commit();
+    }
+
+    public void career_studentPersistence(CSVParser parserCareerStudent) {
+
+        for(CSVRecord record: parserCareerStudent) {
+            this.em.getTransaction().begin();
+
+            int student = Integer.parseInt(record.get(1));
+            int c = Integer.parseInt(record.get(2));
+            Date initDate = new Date(Integer.parseInt(record.get(3)), Calendar.JANUARY,0);
+            Date dueDate = new Date(Integer.parseInt(record.get(4)), Calendar.JANUARY,0);
+            //Busca al estudiante y a la carrera por sus PK y trae los datos
+            Person person = this.em.find(Person.class, student);
+            Career career = this.em.find(Career.class, c);
+            System.out.println(career);
+            System.out.println(person);
+            person.setCareers(career);
+            PersonCareer insert = new PersonCareer(person, career, initDate, dueDate);
+            this.em.persist(insert);
+            this.em.getTransaction().commit();
+        }
     }
 }

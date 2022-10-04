@@ -45,6 +45,9 @@ public class Career {
           this.students = new ArrayList<>();
     }
 
+    public Career(String s) {
+    }
+
 
     public Integer getId() {
         return id;

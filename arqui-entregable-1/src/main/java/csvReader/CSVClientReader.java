@@ -2,6 +2,7 @@ package csvReader;
 
 import Entities.Bill;
 import Entities.Client;
+import com.mysql.cj.xdevapi.Client;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;

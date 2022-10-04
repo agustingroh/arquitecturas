@@ -6,6 +6,7 @@ import main.java.interfaces.IRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,5 +64,17 @@ public class CareerRepository extends Repository implements IRepository<Career,I
     }
 
 
+    public void insertAll(LinkedList<Career> careers) {
+        this.em.getTransaction().begin();
+        careers.forEach(c -> {
+            try {
+                Career career = this.em.merge(c);
+                this.em.persist(career);
+            } catch (Exception e){
+                throw new RuntimeException(e);
+            }
+        });
+        this.em.getTransaction().commit();
 
+    }
 }

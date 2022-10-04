@@ -48,7 +48,8 @@ public class Person {
         this.age = age;
     }
 
-
+    public Person(String s) {
+    }
 
     public Integer getDni() {
         return dni;
