@@ -27,9 +27,9 @@ public class Main {
         PersonRepository p = mySQL.getPersonRepository();
         CareerRepository c = mySQL.getCareerRepository();
         PersonCareerRepository pc = mySQL.getPersonCareerRepository();
-        Person student = new Person(39367874, "Pedro", "Codan", "M", "Tandil", 1);
-        Person student2 = new Person(3936788, "Pedro", "Coda", "M", "Tandil", 2);
-        Person student3 = new Person(4012788,"Valeria","Alvarez","F","Rauch",3);
+        Person student = new Person(39367874, "Pedro", "Codan", "M", "Tandil",1, 25);
+        Person student2 = new Person(3936788, "Pedro", "Coda", "M", "Tandil", 2,24);
+        Person student3 = new Person(4012788,"Valeria","Alvarez","F","Rauch",3,20);
 
         try {
             System.out.println("INGRESANDO NUEVOS ESTUDIANTES...");
