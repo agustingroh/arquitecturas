@@ -20,10 +20,8 @@ public class PersonService {
     }
 
     public List<Person> findAll(){
-        List < Person > students = new ArrayList< >();
-        List < Person > studentList = personRepository.findAll();
-        studentList.forEach(person -> students.add(person));
-        return students;
+      return personRepository.findAll();
+
     }
 
 
