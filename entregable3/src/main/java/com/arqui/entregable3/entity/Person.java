@@ -1,5 +1,6 @@
 package com.arqui.entregable3.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -7,26 +8,27 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
-@Table(name="Person")
+
 public class Person {
     @Id
     @Column(name = "dni")
-    private Integer dni;
+    public Integer dni;
 
     @Column(name = "name")
-    private String name;
+    public String name;
 
-    private String surname;
+    public String surname;
 
-    private String gender;
+    public String gender;
 
-    private String city;
+    public String city;
 
-    private int age;
+    public int age;
 
     @Column(name="college_notebook")
-    private int collegeNotebook;
+    public int collegeNotebook;
 
 /*    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE)
     @OnDelete(action = OnDeleteAction.CASCADE)

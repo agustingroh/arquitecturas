@@ -23,9 +23,7 @@ public class PersonController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Person> findAll(){
-        List<Person>  p = personService.findAll();
-        System.out.println(p);
-        return p;
+        return personService.findAll();
     }
 
 }

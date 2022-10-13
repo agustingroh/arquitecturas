@@ -18,5 +18,4 @@ import java.util.Optional;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
 
-  List<Person> findAll();
 }
