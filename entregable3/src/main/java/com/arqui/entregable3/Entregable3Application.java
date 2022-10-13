@@ -1,4 +1,4 @@
-package com.example.entregable3;
+package com.arqui.entregable3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
