@@ -41,6 +41,11 @@ public class PersonController {
         return personService.getStudentByLU(LU);
     }
 
+    @RequestMapping(value = "/gender/{gender}", method = RequestMethod.GET, produces = "application/json")
+    public List<PersonDTO> getStudentsByGender(@PathVariable String gender){
+        return personService.getStudentsByGender(gender);
+    }
+
 
 
 
