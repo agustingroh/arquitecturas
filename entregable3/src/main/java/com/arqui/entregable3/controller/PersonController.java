@@ -36,6 +36,11 @@ public class PersonController {
         return personService.getAllStudentsBy(params);
     }
 
+    @RequestMapping(value = "/collegeNotebook/{LU}", method = RequestMethod.GET, produces = "application/json")
+    public PersonDTO getStudentByLU(@PathVariable int LU){
+        return personService.getStudentByLU(LU);
+    }
+
 
 
 
