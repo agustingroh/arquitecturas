@@ -1,5 +1,10 @@
 package com.arqui.entregable3.dto;
 
+import com.arqui.entregable3.entity.Career;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class PersonDTO {
     private Integer dni;
 
@@ -13,7 +18,11 @@ public class PersonDTO {
 
     private int age;
 
-    public int collegeNotebook;
+    private int collegeNotebook;
+
+    private List<Career> careers;
+
+
 
     public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook) {
         this.dni = dni;
@@ -23,6 +32,12 @@ public class PersonDTO {
         this.city = city;
         this.age = age;
         this.collegeNotebook = collegeNotebook;
+        this.careers = new LinkedList<>();
+    }
+
+    public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook, List<Career> c){
+        this(dni,name,surname,gender,city,age,collegeNotebook);
+        this.careers = c;
     }
 
     public Integer getDni() {
@@ -52,4 +67,9 @@ public class PersonDTO {
     public int getCollegeNotebook() {
         return collegeNotebook;
     }
+
+    public List<Career> getCareers(){
+        return this.careers;
+    }
+
 }
