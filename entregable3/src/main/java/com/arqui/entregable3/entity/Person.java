@@ -1,5 +1,6 @@
 package com.arqui.entregable3.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Data
 @Entity
 
 public class Person {
@@ -30,9 +31,10 @@ public class Person {
     @Column(name="college_notebook")
     public int collegeNotebook;
 
-/*    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "student", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<PersonCareer> careers;*/
+    private List<PersonCareer> careers;
 
     public Person(){
         super();
@@ -45,7 +47,7 @@ public class Person {
         this.gender = gender;
         this.city = city;
         this.collegeNotebook = collegeNotebook;
-       // this.careers = //new ArrayList<>();
+        this.careers = new ArrayList<>();
         this.age = age;
     }
 
@@ -109,14 +111,13 @@ public class Person {
     }
 
     public int getAge(){return this.age;}
-/*
     public void setCareers(Career c)
     {
         PersonCareer pc = new PersonCareer(this,c);
         this.careers.add(pc);
         c.setStudents(this);
 
-    }*/
+    }
 
     @Override
     public String toString() {

@@ -1,5 +1,6 @@
 package com.arqui.entregable3.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,8 +20,8 @@ public class Career {
     @Column
     private int duration;
 
-
-    @OneToMany(mappedBy = "career",cascade = CascadeType.MERGE)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "career",cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PersonCareer> students;
 
@@ -49,31 +50,7 @@ public class Career {
         return id;
     }
 
-    @Override
-    public String toString() {
-        String c = "{" +
-                "id:" + id +
-                ", name:'" + name + '\'' +
-                ", duration:" + duration + "," + '\'';
 
-
-        String students = "";
-        for (PersonCareer s:this.students) {
-            if(this.students.size()>1)
-                students +=  s.getStudent().toString().substring(0, s.getStudent().toString().length() - 1)  + "," +
-                        " isGraduated: "+ s.isGraduated() +
-                        " , initDate: " + s.getInitDate().toString() +
-                        " , graduationDay:" + s.getDueDate() +
-                        "}" + ",";
-            else
-                students += "{" + s.getStudent().toString().substring(0, s.getStudent().toString().length()-1) + "," + "isGraduated: "+ s.isGraduated() + " , initDate: " + s.getInitDate().toString() +
-                        " , graduationDay:" + s.getDueDate() + "}";
-        }
-        c = c.concat("students:" + "[" + students + "]" + "}");
-
-        return c;
-
-    }
 
     public void setId(Integer id) {
         this.id = id;

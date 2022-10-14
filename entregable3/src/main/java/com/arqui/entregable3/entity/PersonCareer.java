@@ -1,5 +1,7 @@
 package com.arqui.entregable3.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,12 +10,14 @@ public class PersonCareer {
 
     @EmbeddedId
     private PersonCareerId id;
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("student_dni")
     @JoinColumn(name = "student_dni")
     private Person student;
 
-
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("career_id")
     @JoinColumn(name = "career_id",referencedColumnName = "id")
