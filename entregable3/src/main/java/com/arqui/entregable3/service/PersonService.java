@@ -32,14 +32,8 @@ public class PersonService {
     }
 
     public List<PersonDTO> getAllStudentsBy(String params){
-
         List<Person> students = personRepository.findAll(Sort.by(Sort.Direction.ASC, params));
-        List<PersonDTO> studentsDTO =  new ArrayList<>();
-        students.forEach(p -> {
-            studentsDTO.add(new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender(),p.getCity(),
-                    p.getAge(),p.getCollegeNotebook()));
-        });
-        return  studentsDTO;
+        return this.getStudentDTOList(students);
     }
 
     public PersonDTO getStudentByLU(int LU){
@@ -47,6 +41,17 @@ public class PersonService {
        return new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender(),p.getCity(),p.getAge(),p.getCollegeNotebook());
     }
 
+    public List<PersonDTO> getStudentsByGender(String gender){
+        List<Person> students = this.personRepository.findBygender(gender);
+        return getStudentDTOList(students);
+    }
 
+    private List<PersonDTO> getStudentDTOList (List<Person> students){
+        List<PersonDTO> studentsDTO = new ArrayList<>();
+        students.forEach(p ->{
+            studentsDTO.add(new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender(),p.getCity(),p.getAge(),p.getCollegeNotebook()));
+        } );
+        return studentsDTO;
+    }
 
 }
