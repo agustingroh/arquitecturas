@@ -20,7 +20,7 @@ public class PersonCareerController {
         this.personCareerService = PersonCareerService;
     }
     @RequestMapping(method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public void addNewPerson(@RequestBody InscriptionDTO inscription){
-        personCareerService.register(inscription);
+    public PersonDTO addNewPerson(@RequestBody InscriptionDTO inscription){
+        return personCareerService.register(inscription);
     }
 }

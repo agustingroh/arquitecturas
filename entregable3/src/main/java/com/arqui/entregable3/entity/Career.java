@@ -1,6 +1,7 @@
 package com.arqui.entregable3.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Career {
 
@@ -80,5 +82,14 @@ public class Career {
     {
         PersonCareer pc = new PersonCareer(student,this);
         this.students.add(pc);
+    }
+
+    @Override
+    public String toString() {
+        return "Career{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duration=" + duration +
+                '}';
     }
 }

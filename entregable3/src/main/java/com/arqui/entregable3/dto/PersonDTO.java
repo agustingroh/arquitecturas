@@ -2,6 +2,7 @@ package com.arqui.entregable3.dto;
 
 import com.arqui.entregable3.entity.Career;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class PersonDTO {
         this.city = city;
         this.age = age;
         this.collegeNotebook = collegeNotebook;
-        this.careers = new LinkedList<>();
+        this.careers = new ArrayList<>();
     }
 
     public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook, List<Career> c){
