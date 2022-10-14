@@ -42,6 +42,10 @@ public class PersonService {
         return  studentsDTO;
     }
 
+    public PersonDTO getStudentByLU(int LU){
+       Person p = this.personRepository.findBycollegeNotebook(LU);
+       return new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender(),p.getCity(),p.getAge(),p.getCollegeNotebook());
+    }
 
 
 
