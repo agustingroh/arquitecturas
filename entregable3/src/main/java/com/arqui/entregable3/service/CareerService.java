@@ -18,6 +18,13 @@ public class CareerService {
     }
 
     public List<Career> getAllCareersWithStudents(){
-        return this.careerRepository.getAllCareersWithStudents();
+        List<Career> careers = this.careerRepository.getAllCareersWithStudents();
+        careers.forEach(career -> {
+
+          career.getStudents().forEach(personCareer -> {
+                System.out.println(personCareer.getStudent());
+            });
+        });
+        return careers;
     }
 }
