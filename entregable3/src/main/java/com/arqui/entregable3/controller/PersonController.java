@@ -4,12 +4,10 @@ import com.arqui.entregable3.dto.PersonDTO;
 import com.arqui.entregable3.entity.Person;
 import com.arqui.entregable3.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/person")
@@ -24,6 +22,7 @@ public class PersonController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<Person> findAll(){
+        System.out.println(personService.findAll());
         return personService.findAll();
     }
 
@@ -31,6 +30,10 @@ public class PersonController {
     public PersonDTO addNewPerson(@RequestBody PersonDTO person){
         System.out.println("POST" + person);
         return personService.addNewPerson(person);
+    }
+    @RequestMapping(value="/order",method = RequestMethod.GET, produces = "application/json")
+    public List<PersonDTO> getAllStudentsBy(@RequestParam("find") String params){
+        return personService.getAllStudentsBy(params);
     }
 
 

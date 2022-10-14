@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @Entity
-
 public class Person {
     @Id
     @Column(name = "dni")

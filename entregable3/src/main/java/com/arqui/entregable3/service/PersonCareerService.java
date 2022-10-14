@@ -11,6 +11,7 @@ import com.arqui.entregable3.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,16 +34,19 @@ public class PersonCareerService {
     public PersonDTO register(InscriptionDTO inscription){
         Person p = personRepository.getById(inscription.getPersonId());
         Career c = careerRepository.getById(inscription.getCareerId());
+
+
         this.personCareerRepository.save(new PersonCareer(p,c));
-        List<Career> careers = new LinkedList<>();
+        p = personRepository.getById(inscription.getPersonId());
+
+        List<Career> careers = new ArrayList<>();
         p.getCareers().forEach(personCareer -> {
-            careers.add(personCareer.getCareer());
+                careers.add(personCareer.getCareer());
         });
-        careers.add(c);
 
 
         return new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender()
-                ,p.getCity(),p.getCollegeNotebook(),p.getAge(),careers);
+                ,p.getCity(),p.getAge(),p.getCollegeNotebook(),careers);
 
     }
 }
