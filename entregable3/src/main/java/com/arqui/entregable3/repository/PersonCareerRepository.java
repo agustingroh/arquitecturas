@@ -16,7 +16,7 @@ public interface PersonCareerRepository extends JpaRepository<PersonCareer, Pers
     @Query(value = "SELECT a.career_id, a.name, a.year ,SUM(a.enrolled) as enrolled,SUM(a.graduated) as graduated FROM (SELECT pc.career_id,c.name, YEAR(pc.initDate) as year, COUNT(*) as enrolled, '0' as graduated FROM PersonCareer pc JOIN Career c ON c.id=pc.career_id GROUP BY pc.career_id,c.name,year UNION SELECT pc.career_id,c.name, YEAR(pc.dueDate) as year,'0' as enrolled ,COUNT(*) as graduated FROM PersonCareer pc JOIN Career c ON c.id=pc.career_id GROUP BY pc.career_id,c.name,year HAVING year IS NOT NULL) as a GROUP BY a.career_id, a.name, a.year ORDER BY a.year ASC, a.name ASC", nativeQuery = true)
     List<Object[]> getReport();
 
-    @Query("SELECT DISTINCT(p) FROM Person p, PersonCareer pc WHERE pc.career.id = :career AND p.city = :city")
-    List<Person> findAllStudentsByCareerAndCity(@Param("career") int career,@Param("city") String city);
+    @Query("SELECT DISTINCT(p) FROM Person p JOIN p.careers pc  WHERE pc.career.id = :careerId AND p.city = :city")
+    List<Person> findAllStudentsByCareerAndCity(@Param("careerId") int career,@Param("city") String city);
 
 }

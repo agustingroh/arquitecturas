@@ -1,5 +1,6 @@
 package com.arqui.entregable3.service;
 
+import com.arqui.entregable3.dto.CareerDTO;
 import com.arqui.entregable3.dto.CareerReportDTO;
 import com.arqui.entregable3.dto.InscriptionDTO;
 import com.arqui.entregable3.dto.PersonDTO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +41,12 @@ public class PersonCareerService {
         this.personCareerRepository.save(new PersonCareer(p,c));
         p = personRepository.getById(inscription.getPersonId());
 
-        List<Career> careers = new ArrayList<>();
+        List<CareerDTO> careers = new ArrayList<>();
         p.getCareers().forEach(personCareer -> {
-                careers.add(personCareer.getCareer());
+            Career career =  personCareer.getCareer();
+            CareerDTO careerDTO = new CareerDTO(career.getId(),career.getName(),career.getDuration(),new LinkedList<>());
+            careers.add(careerDTO);
         });
-
         return new PersonDTO(p.getDni(),p.getName(),p.getSurname(),p.getGender()
                 ,p.getCity(),p.getAge(),p.getCollegeNotebook(),careers);
 
@@ -54,16 +57,20 @@ public class PersonCareerService {
         return careerReports.stream().map(r-> new CareerReportDTO((Integer)r[0],(String) r[1],((BigInteger)r[2]).intValue(),((Double) r[3]).intValue(),((Double) r[4]).intValue())).collect(Collectors.toList());
     }
 
-    public List<Person> findAllStudentsByCareerAndCity(int careerId, String city){
-        System.out.println(careerId);
-        System.out.println(city);
+    public List<PersonDTO> findAllStudentsByCareerAndCity(int careerId, String city){
        List<Person> students = this.personCareerRepository.findAllStudentsByCareerAndCity(careerId,city);
+        LinkedList<CareerDTO> careerDTOS = new LinkedList<>();
+        LinkedList<PersonDTO> studentDTOS = new LinkedList<>();
         students.forEach(student -> {
-
             student.getCareers().forEach(personCareer -> {
-                System.out.println(personCareer.getCareer());
+                Career career = personCareer.getCareer();
+                CareerDTO c = new CareerDTO(career.getId(),career.getName(),career.getDuration(),new LinkedList<>());
+                careerDTOS.add(c);
             });
+            PersonDTO p = new PersonDTO(student.getDni(),student.getName(),student.getSurname(),
+                    student.getGender(),student.getCity(),student.getAge(),student.getCollegeNotebook(),careerDTOS);
+            studentDTOS.add(p);
         });
-        return students;
+        return studentDTOS;
     }
 }

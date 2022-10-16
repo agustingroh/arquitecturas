@@ -1,5 +1,6 @@
 package com.arqui.entregable3.controller;
 
+import com.arqui.entregable3.dto.CareerDTO;
 import com.arqui.entregable3.dto.PersonDTO;
 import com.arqui.entregable3.entity.Career;
 import com.arqui.entregable3.service.CareerService;
@@ -23,7 +24,7 @@ public class CareerController {
     }
 
     @RequestMapping(value = "/inscriptions",method = RequestMethod.GET, produces = "application/json")
-    public List<Career> findAlCareersWithStudents(){
+    public List<CareerDTO> findAlCareersWithStudents(){
       return  careerService.getAllCareersWithStudents();
     }
 

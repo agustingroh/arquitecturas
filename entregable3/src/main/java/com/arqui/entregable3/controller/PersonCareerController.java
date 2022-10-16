@@ -31,7 +31,7 @@ public class PersonCareerController {
     }
 
     @RequestMapping(value="/{career}/{city}", method = RequestMethod.GET, produces = "application/json")
-    public List<Person> getStudentsByCareerAndCity(@PathVariable int career, @PathVariable String city){
+    public List<PersonDTO> getStudentsByCareerAndCity(@PathVariable int career, @PathVariable String city){
         return this.personCareerService.findAllStudentsByCareerAndCity(career,city);
     }
 }

@@ -21,7 +21,7 @@ public class PersonDTO {
 
     private int collegeNotebook;
 
-    private List<Career> careers;
+    private List<CareerDTO> careers;
 
 
 
@@ -33,11 +33,12 @@ public class PersonDTO {
         this.city = city;
         this.age = age;
         this.collegeNotebook = collegeNotebook;
-        this.careers = new ArrayList<>();
+        this.careers = new LinkedList<>();
     }
 
-    public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook, List<Career> c){
+    public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook, List<CareerDTO> c){
         this(dni,name,surname,gender,city,age,collegeNotebook);
+        this.careers = new LinkedList<>();
         this.careers = c;
     }
 
@@ -69,7 +70,7 @@ public class PersonDTO {
         return collegeNotebook;
     }
 
-    public List<Career> getCareers(){
+    public List<CareerDTO> getCareers(){
         return this.careers;
     }
 
