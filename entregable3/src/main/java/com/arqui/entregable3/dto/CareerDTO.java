@@ -13,20 +13,20 @@ public class CareerDTO {
 
     private LinkedList<PersonDTO> students;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public CareerDTO(Integer id, String name, int duration, LinkedList<PersonDTO> students) {
         this.id = id;
         this.name = name;
         this.duration = duration;
         this.students = new LinkedList<>();
         this.students = students;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getDuration() {
