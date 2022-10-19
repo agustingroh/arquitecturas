@@ -57,10 +57,12 @@ public class PersonCareerService {
 
     public List<PersonDTO> findAllStudentsByCareerAndCity(int careerId, String city){
         List<Person> students = this.personCareerRepository.findAllStudentsByCareerAndCity(careerId,city);
-        LinkedList<CareerWithPersonDataDTO> careerDTOS = new LinkedList<>();
+        System.out.println(students);
         LinkedList<PersonDTO> studentDTOS = new LinkedList<>();
         students.forEach(student -> {
+            LinkedList<CareerWithPersonDataDTO> careerDTOS = new LinkedList<>();
             student.getCareers().forEach(personCareer -> {
+                System.out.println(personCareer.getCareer());
                 Career career = personCareer.getCareer();
                 CareerWithPersonDataDTO c = new CareerWithPersonDataDTO(career.getId(),career.getName(),career.getDuration(),new LinkedList<>(), personCareer);
                 careerDTOS.add(c);
