@@ -23,9 +23,12 @@ public class PersonDTO {
 
     private List<CareerWithPersonDataDTO> careers;
 
-
+    public PersonDTO(){
+        this.careers = new LinkedList<>();
+    }
 
     public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook) {
+        this();
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -33,7 +36,6 @@ public class PersonDTO {
         this.city = city;
         this.age = age;
         this.collegeNotebook = collegeNotebook;
-        this.careers = new LinkedList<>();
     }
 
     public PersonDTO(Integer dni, String name, String surname, String gender, String city, int age, int collegeNotebook, List<CareerWithPersonDataDTO> c){
